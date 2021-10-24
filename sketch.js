@@ -63,7 +63,7 @@ function keyPressed() {
 	correctness = true
 	if (keyCode == 13) {
 		input.value("")
-		if (strings.includes(typedText) && typedText.includes(substring)) {
+		if (strings.includes(typedText.replace(/[^a-z-]/g, '')) && typedText.includes(substring)) {
 			substring = random(substringList)
 			typedText = ""
 			formattedTypedText = []
