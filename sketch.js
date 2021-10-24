@@ -6,6 +6,8 @@ let substring
 let typedText = ""
 let formattedTypedText = []
 let correctness = true
+let possibleWordsArray = []
+let possibleWords = ""
 
 const BOMBSIZE = 160
 const TEXTSIZE = 150
@@ -52,6 +54,9 @@ function draw() {
 	textAlign(CENTER)
 	text(substring.toUpperCase(), windowWidth / 2, windowHeight / 2)
 	drawtextCenter(windowWidth / 2, windowHeight / 2 - 140, formattedTypedText)
+	textAlign(LEFT)
+	fill(255)
+	text(possibleWords, 50, 50)
 }
 
 function keyPressed() {
@@ -62,8 +67,20 @@ function keyPressed() {
 			substring = random(substringList)
 			typedText = ""
 			formattedTypedText = []
+			possibleWords = ""
+			possibleWordsArray = []
 		} else {
 			correctness = false
+			if(possibleWords == ""){
+				for(let word of strings){
+					if(word.includes(substring)){
+						possibleWordsArray.push(word)
+					}
+				}
+				const shuffled = possibleWordsArray.sort(() => 0.5 - random());
+				let selected = shuffled.slice(0, 10);
+				possibleWords = selected.join("\n")
+			}
 		}
 	}
 }
